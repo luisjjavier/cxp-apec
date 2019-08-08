@@ -85,14 +85,21 @@ namespace ApecCxP.Controllers
 
                 var AccountingSeat = new
                 {
-                    Id = documentEntry.BillNumber,
+                    Id = 22,
                     Cuenta = "Cuenta Corriente BHD",
-                    Tipo = "Corriente",
+                    Tipo = "CR",
                     Monto = documentEntry.Amount
 
                 };
 
                 accountList.Add(AccountingSeat);
+                accountList.Add(new
+                {
+                    Id = 32,
+                    Cuenta = "Caja chica",
+                    Tipo = "DB",
+                    Monto = documentEntry.Amount
+                } );
 
                 var jsonResponse = new
                 {
