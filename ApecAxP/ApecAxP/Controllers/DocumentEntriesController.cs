@@ -3,7 +3,11 @@ using ApecAxP.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace ApecCxP.Controllers
@@ -61,10 +65,45 @@ namespace ApecCxP.Controllers
             {
                 _context.Add(documentEntry);
                 await _context.SaveChangesAsync();
+
+                AddAccountingSeat(documentEntry);
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Id", documentEntry.ProviderId);
+
             return View(documentEntry);
+        }
+
+        private static void AddAccountingSeat(DocumentEntry documentEntry)
+        {
+
+            using (HttpClient client = new HttpClient())
+            {
+                var AccountingSeat = new
+                {
+                    Id = documentEntry.BillNumber,
+                    Cuenta = "Cuenta Corriente BHD",
+                    Tipo = "Corriente",
+                    Monto = documentEntry.Amount
+                };
+
+                string url = "https://sistemacontabilidadintegraciones.azurewebsites.net";
+                client.BaseAddress = new Uri(url);
+
+                client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
+                string endPoint = "/api/asientocontable";
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(AccountingSeat));
+
+                var response = client.PostAsync(endPoint, content).Result;
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Error");
+                }
+            }
         }
 
         // GET: DocumentEntries/Edit/5
