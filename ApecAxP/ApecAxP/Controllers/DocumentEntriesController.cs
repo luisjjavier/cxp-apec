@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -80,12 +81,24 @@ namespace ApecCxP.Controllers
 
             using (HttpClient client = new HttpClient())
             {
+                List<object> accountList = new List<object>();
+
                 var AccountingSeat = new
                 {
                     Id = documentEntry.BillNumber,
                     Cuenta = "Cuenta Corriente BHD",
                     Tipo = "Corriente",
                     Monto = documentEntry.Amount
+
+                };
+
+                accountList.Add(AccountingSeat);
+
+                var jsonResponse = new
+                {
+                    Cuentas = accountList,
+                    Descripcion = $"Factura registrada el {documentEntry.RegisterDate}",
+                    Auxiliar = 0
                 };
 
                 string url = "https://sistemacontabilidadintegraciones.azurewebsites.net";
