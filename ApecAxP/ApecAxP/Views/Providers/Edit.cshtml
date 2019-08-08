@@ -4,9 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar proveedor @Html.DisplayFor(model => model.Name)</h1>
 
-<h4>Provider</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PersonType" class="control-label"></label>
-                <select asp-for="PersonType" class="form-control"></select>
+                <select asp-for="PersonType" class="form-control" asp-items="Html.GetEnumSelectList<ApecAxP.Enums.PersonType>()"></select>
                 <span asp-validation-for="PersonType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,14 +38,14 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-secondary" asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {

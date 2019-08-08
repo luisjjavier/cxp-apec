@@ -2,7 +2,7 @@
 {
     public enum PersonType
     {
-        Physic = 1,
-        Juridic = 2
+        Física = 1,
+        Jurídica = 2
     }
 }

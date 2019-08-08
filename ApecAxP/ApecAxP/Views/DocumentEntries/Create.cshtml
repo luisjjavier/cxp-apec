@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Entrada de Documento</h1>
 
-<h4>DocumentEntry</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DocumentDate" class="control-label"></label>
-                <input asp-for="DocumentDate" class="form-control" />
+                <input type="date" asp-for="DocumentDate" class="form-control" />
                 <span asp-validation-for="DocumentDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -29,22 +28,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="RegisterDate" class="control-label"></label>
-                <input asp-for="RegisterDate" class="form-control" />
+                <input type="date" asp-for="RegisterDate" class="form-control" />
                 <span asp-validation-for="RegisterDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProviderId" class="control-label"></label>
-                <select asp-for="ProviderId" class ="form-control" asp-items="ViewBag.ProviderId"></select>
+                <select asp-for="ProviderId" class="form-control" asp-items="ViewBag.ProviderId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Someter Formulario" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-secondary" asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {
