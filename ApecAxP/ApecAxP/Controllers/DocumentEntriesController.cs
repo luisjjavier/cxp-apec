@@ -66,7 +66,7 @@ namespace ApecCxP.Controllers
                 _context.Add(documentEntry);
                 await _context.SaveChangesAsync();
 
-                AddAccountingSeat(documentEntry);
+                await AddAccountingSeat(documentEntry);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -75,7 +75,7 @@ namespace ApecCxP.Controllers
             return View(documentEntry);
         }
 
-        private static void AddAccountingSeat(DocumentEntry documentEntry)
+        private async Task AddAccountingSeat(DocumentEntry documentEntry)
         {
 
             using (HttpClient client = new HttpClient())
@@ -97,7 +97,7 @@ namespace ApecCxP.Controllers
                 string endPoint = "/api/asientocontable";
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(AccountingSeat));
 
-                var response = client.PostAsync(endPoint, content).Result;
+                var response = await client.PostAsync(endPoint, content);
 
                 if (!response.IsSuccessStatusCode)
                 {
