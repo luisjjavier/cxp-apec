@@ -72,6 +72,8 @@ namespace ApecAxP
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseMvc();
         }
     }
 }

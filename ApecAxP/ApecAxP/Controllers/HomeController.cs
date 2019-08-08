@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ApecCxP.Models;
 using Microsoft.AspNetCore.Mvc;
-using ApecCxP.Models;
+using System.Diagnostics;
 
 namespace ApecCxP.Controllers
 {
@@ -12,7 +8,11 @@ namespace ApecCxP.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return LocalRedirect("/Identity/Account/Login");
         }
 
         public IActionResult Privacy()
